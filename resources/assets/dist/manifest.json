@@ -1,0 +1,16 @@
+{
+  "js/voyager.ts": {
+    "file": "voyager.cbd3c889.js",
+    "src": "js/voyager.ts",
+    "isEntry": true,
+    "imports": [
+      "_vendor.196567df.js"
+    ],
+    "css": [
+      "voyager.23794c15.css"
+    ]
+  },
+  "_vendor.196567df.js": {
+    "file": "vendor.196567df.js"
+  }
+}

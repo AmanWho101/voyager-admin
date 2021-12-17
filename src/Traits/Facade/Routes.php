@@ -43,16 +43,4 @@ trait Routes
     {
         return $this::$routePath;
     }
-
-    /**
-     * Generate an absolute URL for an asset-file.
-     */
-    public function assetUrl(?string $path = null): string
-    {
-        if ($path === null) {
-            return route('voyager.voyager_assets').'?path=';
-        }
-
-        return route('voyager.voyager_assets').'?path='.urlencode($path).'&version='.$this->getVersion();
-    }
 }

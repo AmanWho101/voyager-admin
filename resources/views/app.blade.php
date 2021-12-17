@@ -15,11 +15,8 @@
     <meta http-equiv="Cache-control" content="public">
 
     <title>{{ $title }} - {{ Voyager::setting('admin.title', 'Voyager II') }}</title>
-    @if ($devServerWanted && $devServerAvailable)
-        <link href="{{ $devServerUrl }}css/voyager.css" rel="stylesheet">
-    @else
-        <link href="{{ Voyager::assetUrl('css/voyager.css') }}" rel="stylesheet">
-    @endif
+
+    {!! Voyager::voyagerAssets() !!}
 
     @foreach (resolve(\Voyager\Admin\Manager\Plugins::class)->getAllPlugins() as $plugin)
         @if ($plugin instanceof \Voyager\Admin\Contracts\Plugins\Features\Provider\CSS)
@@ -34,21 +31,11 @@
 
 <body>
     <div id="tooltips" class="h-0 w-0"></div>
-    <div id="voyager" data-page="{{ json_encode($page) }}"></div>
+    @inertia
 </body>
 
 @routes
-
-@if ($devServerWanted && $devServerAvailable)
-    <script src="{{ $devServerUrl }}js/voyager.js"></script>
-@else
-    <script src="{{ Voyager::assetUrl('js/voyager.js') }}"></script>
-@endif
-
-<script>
-createVoyager({!! json_encode(Voyager::getViewData()) !!});
-</script>
-
+<!--
 @foreach (resolve(\Voyager\Admin\Manager\Plugins::class)->getAllPlugins() as $plugin)
     @if ($plugin instanceof \Voyager\Admin\Contracts\Plugins\Features\Provider\JS)
         <script src="{{ Voyager::assetUrl('plugin/'.Str::slug($plugin->name).'.js') }}"></script>
@@ -58,9 +45,7 @@ createVoyager({!! json_encode(Voyager::getViewData()) !!});
 @foreach (Voyager::getAssets()->where('type', 'js') as $asset)
     <script src="{{ $asset['path'] }}"></script>
 @endforeach
+-->
 
-<script>
-mountVoyager();
-</script>
 @yield('js')
 </html>

@@ -1,6 +1,6 @@
 import { Voyager } from '../types/interfaces';
 
-import Store from '@/store';
+import Store from '@/store.js';
 
 export default {
     install(app: Voyager) {

@@ -1,5 +1,5 @@
 // @ts-ignore
-__webpack_public_path__ = document.querySelector('meta[name="asset-url"]')?.content;
+// __webpack_public_path__ = document.querySelector('meta[name="asset-url"]')?.content;
 
 // External libraries
 import * as Vue from 'vue';
@@ -33,7 +33,6 @@ window.scrollTo = scrollTo;
 window.debounce = debounce;
 window.eventbus = eventbus;
 
-// @ts-ignore
 import Voyager from '@components/Voyager.vue';
 
 // Multilanguage
@@ -61,7 +60,6 @@ let voyager: Voyager;
 
 function prepareVoyager(data: VoyagerData) {
     for (let key of Object.keys(data)) {
-        // @ts-ignore
         Store[key] = data[key];
     }
 
@@ -121,95 +119,89 @@ function prepareVoyager(data: VoyagerData) {
     }
 
     // Register UI components
-    let ui = require.context('@components/UI', true, /\.vue$/i)
-    ui.keys().forEach((path) => {
-        let name = path.replace('./', '').replace('.vue', '');
-        voyager.component(name, ui(path).default);
-    });
-    
+    const ui = import.meta.globEager('/components/UI/*.vue')
+    for (const path in ui) {
+        let name = path.substring(path.lastIndexOf('/') + 1).replace('.vue', '');
+        voyager.component(name, ui[path].default);
+    }
+
     // Register transition components
-    let transitions = require.context('@components/Transitions', true, /\.vue$/i)
-    transitions.keys().forEach((path) => {
-        let name = path.replace('./', '').replace('.vue', '');
-        voyager.component(name+'Transition', transitions(path).default);
-    });
+    const transitions = import.meta.globEager('/components/Transitions/*.vue')
+    for (const path in transitions) {
+        let name = path.substring(path.lastIndexOf('/') + 1).replace('.vue', '');
+        voyager.component(name+'Transition', transitions[path].default);
+    }
 
     // Register formfield components
-    let formfields = require.context('@components/Formfields', true, /\.vue$/i)
-    formfields.keys().forEach((path) => {
-        let name = path.replace('./', '').replace('.vue', '');
-        let parts = name.split('/');
+    const formfields = import.meta.glob('/components/Formfields/*/*.vue');
+    for (const path in formfields) {
+        let parts = path.substring(path.indexOf('/Formfields') + 12).replace('.vue', '').split('/');
         if (parts[1] == 'Formfield') {
-            voyager.component(`Formfield${parts[0]}`, formfields(path).default);
+            voyager.component(`Formfield${parts[0]}`, formfields[path].default);
         } else if (parts[1] == 'Builder') {
-            voyager.component(`Formfield${parts[0]}Builder`, formfields(path).default);
+            voyager.component(`Formfield${parts[0]}Builder`, formfields[path].default);
         }
-    });
+    }
 
     window.voyager = voyager;
     voyager.config.globalProperties.$voyager = voyager;
-
-    if (module.hot) {
-        const first = window.location.pathname;
-        module.hot.accept();
-        module.hot.dispose(() => {
-            if (first !== window.location.pathname) {
-                window.location.reload();
-            }
-        });
-    }
 }
 
-let mountTo: Element;
+import Dashboard from '@components/Dashboard.vue';
+import Error from '@components/Error.vue';
+import Generic from '@components/Generic.vue';
+import Login from '@components/Login.vue';
+import Media from '@components/Media.vue';
+import Plugins from '@components/Plugins.vue';
+import Settings from '@components/Settings.vue';
+import UI from '@components/UI.vue';
 
-window.createVoyager = (data: VoyagerData, el = 'voyager') => {
-    createInertiaApp({
-        resolve: name => {
-            // This is necessary so webpack doesn't load ALL components (by using require(`@components/${name}`))
-            let component = require(`@components/Generic.vue`).default;
+import BuilderBrowse from '@components/Builder/Browse.vue';
+import BuilderEditAdd from '@components/Builder/EditAdd.vue';
 
-            if (name == 'Dashboard') {
-                component = require(`@components/Dashboard.vue`).default;
-            } else if (name == 'Error') {
-                component = require(`@components/Error.vue`).default;
-            } else if (name == 'Login') {
-                component = require(`@components/Login.vue`).default;
-            } else if (name == 'Media') {
-                component = require(`@components/Media.vue`).default;
-            } else if (name == 'Plugins') {
-                component = require(`@components/Plugins.vue`).default;
-            } else if (name == 'Settings') {
-                component = require(`@components/Settings.vue`).default;
-            } else if (name == 'UI') {
-                component = require(`@components/UI.vue`).default;
-            } else if (name == 'Bread/Browse') {
-                component = require(`@components/Bread/Browse.vue`).default;
-            } else if (name == 'Bread/EditAdd') {
-                component = require(`@components/Bread/EditAdd.vue`).default;
-            } else if (name == 'Bread/Read') {
-                component = require(`@components/Bread/Read.vue`).default;
-            } else if (name == 'Builder/Browse') {
-                component = require(`@components/Builder/Browse.vue`).default;
-            } else if (name == 'Builder/EditAdd') {
-                component = require(`@components/Builder/EditAdd.vue`).default;
-            }
+import BreadBrowse from '@components/Bread/Browse.vue';
+import BreadEditAdd from '@components/Bread/EditAdd.vue';
+import BreadRead from '@components/Bread/Read.vue';
 
-            component.layout = component.layout || Voyager;
+createInertiaApp({
+    resolve: name => {
+        let page = Generic;
+        if (name == 'Dashboard') {
+            page = Dashboard;
+        } else if (name == 'Error') {
+            page = Error;
+        } else if (name == 'Login') {
+            page = Login;
+        } else if (name == 'Media') {
+            page = Media;
+        } else if (name == 'Plugins') {
+            page = Plugins;
+        } else if (name == 'Settings') {
+            page = Settings;
+        } else if (name == 'UI') {
+            page = UI;
+        } else if (name == 'Builder/Browse') {
+            page = BuilderBrowse;
+        } else if (name == 'Builder/EditAdd') {
+            page = BuilderEditAdd;
+        } else if (name == 'Bread/Browse') {
+            page = BreadBrowse;
+        } else if (name == 'Bread/EditAdd') {
+            page = BreadEditAdd;
+        } else if (name == 'Bread/Read') {
+            page = BreadRead;
+        }
+        page.layout = page.layout || Voyager;
 
-            return component;
-        },
-        setup({ el, app, props, plugin }) {
-            voyager = Vue.createApp({
-                render: () => Vue.h(app, props)
-            }).use(plugin);
+        return page;
+    },
+    setup({ el, App, props, plugin }) {
+        voyager = Vue.createApp({
+            render: () => Vue.h(App, props)
+        }).use(plugin);
 
-            prepareVoyager(data);
-            mountTo = el;
-        },
-        id: el
-    });
-};
+        prepareVoyager(props.initialPage.props.voyager_props);
 
-window.mountVoyager = () => {
-    voyager.mount(mountTo);
-};
+        voyager.mount(el);
+    },
+})

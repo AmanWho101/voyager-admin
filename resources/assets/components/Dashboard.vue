@@ -17,7 +17,12 @@
 </template>
 
 <script lang="ts">
+import Card from '@components/UI/Card.vue';
+
 export default {
+    components: {
+        Card,
+    },
     props: {
         widgets: {
             type: Array,

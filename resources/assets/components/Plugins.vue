@@ -274,7 +274,7 @@
 
 <script>
 import axios from 'axios';
-const compare = require('semver-compare');
+const compare = () => false;
 
 import Store from '@/store';
 

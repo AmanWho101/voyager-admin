@@ -199,7 +199,7 @@ import axios from 'axios';
 import debounce from 'debounce';
 
 import Store from '@/store';
-import BreadActions from '@components/Bread/Actions';
+import BreadActions from '@components/Bread/Actions.vue';
 
 export default {
     emits: ['select'],
