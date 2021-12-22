@@ -1,0 +1,1 @@
+import{_ as n,c as a,o as s,a as t}from"./app.5d92c05f.js";const _='{"title":"Language","description":"","frontmatter":{},"relativePath":"plugins/language.md","lastUpdated":1640167145076}',p={},e=t("",4),o=[e];function c(l,i,u,r,k,g){return s(),a("div",null,o)}var y=n(p,[["render",c]]);export{_ as __pageData,y as default};

@@ -1,0 +1,1 @@
+import{_ as n,c as s,o as a,a as t}from"./app.5d92c05f.js";const y='{"title":"Settings","description":"","frontmatter":{},"relativePath":"plugins/settings.md","lastUpdated":1640167145076}',e={},p=t("",5),o=[p];function i(c,l,r,u,g,k){return a(),s("div",null,o)}var h=n(e,[["render",i]]);export{y as __pageData,h as default};
