@@ -1,0 +1,1 @@
+import{_ as n,c as s,o as a,a as t}from"./app.cc1fb9e4.js";const _='{"title":"Overriding Icons","description":"","frontmatter":{},"headers":[],"relativePath":"overriding/icons.md","lastUpdated":1642770432664}',o={},p=t("",5),e=[p];function c(i,u,r,l,k,d){return a(),s("div",null,e)}var f=n(o,[["render",c]]);export{_ as __pageData,f as default};
