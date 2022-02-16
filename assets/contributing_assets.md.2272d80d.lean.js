@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as s,a as o}from"./app.603d55eb.js";const m='{"title":"Assets","description":"","frontmatter":{},"headers":[],"relativePath":"contributing/assets.md"}',a={},r=o("",3),i=[r];function c(l,n,d,u,_,p){return s(),t("div",null,i)}var f=e(a,[["render",c]]);export{m as __pageData,f as default};
