@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./app.ccd62082.js";const f='{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"de/index.md"}',r={};function o(n,c,s,d,i,_){return a(),t("div")}var l=e(r,[["render",o]]);export{f as __pageData,l as default};
