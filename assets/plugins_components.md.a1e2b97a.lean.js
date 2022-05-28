@@ -1,1 +1,0 @@
-import{_ as n,c as s,o as a,a as t}from"./app.fa428768.js";const g='{"title":"Components","description":"","frontmatter":{},"headers":[{"level":2,"title":"Settings","slug":"settings"}],"relativePath":"plugins/components.md"}',p={},o=t("",6),e=[o];function c(i,u,l,k,r,d){return a(),s("div",null,e)}var h=n(p,[["render",c]]);export{g as __pageData,h as default};

@@ -1,1 +1,0 @@
-import{_ as n,c as s,o as a,a as t}from"./app.fa428768.js";const f='{"title":"Features","description":"","frontmatter":{},"headers":[],"relativePath":"plugins/features.md"}',e={},o=t("",2),p=[o];function c(l,i,u,k,r,d){return a(),s("div",null,p)}var y=n(e,[["render",c]]);export{f as __pageData,y as default};
